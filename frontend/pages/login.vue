@@ -1,5 +1,5 @@
 <template>
-	<div class="container col-md-6 mt-5">
+	<div class="container col-md-3 mt-5">
 		<h2>Login</h2>
 		<br />
 		<form @submit.prevent="submit">
@@ -26,20 +26,14 @@
 			</div>
 			<button type="submit" class="btn btn-primary">Login</button>
 		</form>
-		<br />
-		<div>
-			<p>
-				Dont have an account?
-				<nuxt-link to="/register">Register</nuxt-link>
-			</p>
-		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	//   middleware: ['guest'],
-	data() {
+    layout:'login',
+    middleware:'guest',
+    data() {
 		return {
 			form: {
 				email: "",
@@ -52,20 +46,8 @@ export default {
 			await this.$auth.loginWith("local", {
 				data: this.form,
 			});
-
-			// this.$router.push({
-			// 	path: this.$route.query.redirect || "/users",
-			// });
+            // this.$router.push('/users');
 		},
 	},
 };
 </script>
-
-
-
-
-
-
-
-
-
