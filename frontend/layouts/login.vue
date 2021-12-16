@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <nuxt/>
-  </div>
+	<div>
+		<nuxt />
+	</div>
 </template>
 
 <script>
-  export default {
-  }
+export default {
+	name: "LoginLayout",
+};
 </script>

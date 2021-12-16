@@ -1,39 +1,47 @@
 <template>
 	<div class="container col-md-3 mt-5">
-		<h2>Login</h2>
-		<br />
+		<div class="d-flex justify-content-center mt-5 mb-5">
+			<img
+				src="~/assets/images/rcvn_name_lg.png"
+				alt="RiverCrane"
+				class="img-reponsive"
+			/>
+		</div>
 		<form @submit.prevent="submit">
-			<div class="form-group">
-				<label>Email address</label>
+			<div class="form-group mb-4">
+				<label class="input-group-icon"><i class="fas fa-user"></i></label>
 				<input
 					v-model.trim="form.email"
 					type="email"
-					class="form-control"
+					class="form-control custom-input-group"
 					placeholder="Enter email"
 					autofocus
 				/>
 				<small class="form-text text-danger"> </small>
 			</div>
-			<div class="form-group">
-				<label>Password</label>
+			<div class="form-group mb-4">
+				<label class="input-group-icon"><i class="fas fa-lock"></i></label>
 				<input
 					v-model.trim="form.password"
 					type="password"
-					class="form-control"
+					class="form-control custom-input-group"
 					placeholder="Password"
 				/>
 				<small class="form-text text-danger"> </small>
 			</div>
-			<button type="submit" class="btn btn-primary">Login</button>
+
+			<button type="submit" class="btn btn-primary" style="float: right">
+				Login
+			</button>
 		</form>
 	</div>
 </template>
 
 <script>
 export default {
-    layout:'login',
-    middleware:'guest',
-    data() {
+	layout: "login",
+	middleware: "guest",
+	data() {
 		return {
 			form: {
 				email: "",
@@ -43,10 +51,11 @@ export default {
 	},
 	methods: {
 		async submit() {
+			this.$nuxt.$loading.start()
 			await this.$auth.loginWith("local", {
 				data: this.form,
 			});
-            // this.$router.push('/users');
+			this.$nuxt.$loading.finish()
 		},
 	},
 };
