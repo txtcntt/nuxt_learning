@@ -8,6 +8,9 @@
 			/>
 		</div>
 		<form @submit.prevent="submit">
+            <div class="input-group text-danger mb-4 d-flex justify-content-center" v-if="errors.common">
+                <span>{{ errors.common[0] }}</span>
+            </div>
 			<div class="form-group mb-4">
 				<label class="input-group-icon"><i class="fas fa-user"></i></label>
 				<input
@@ -17,7 +20,7 @@
 					placeholder="Enter email"
 					autofocus
 				/>
-				<small class="form-text text-danger"> </small>
+				<small class="form-text text-danger" v-if="errors.email" >{{errors.email[0]}}</small>
 			</div>
 			<div class="form-group mb-4">
 				<label class="input-group-icon"><i class="fas fa-lock"></i></label>
@@ -27,7 +30,7 @@
 					class="form-control custom-input-group"
 					placeholder="Password"
 				/>
-				<small class="form-text text-danger"> </small>
+				<small class="form-text text-danger" v-if="errors.password" >{{errors.password[0]}}</small>
 			</div>
 
 			<button type="submit" class="btn btn-primary" style="float: right">
@@ -51,11 +54,15 @@ export default {
 	},
 	methods: {
 		async submit() {
-			this.$nuxt.$loading.start()
-			await this.$auth.loginWith("local", {
-				data: this.form,
-			});
-			this.$nuxt.$loading.finish()
+            try{
+                this.$nuxt.$loading.start()
+                await this.$auth.loginWith("local", {
+                    data: this.form,
+                });			
+            }catch(error){
+                
+            }
+            this.$nuxt.$loading.finish()
 		},
 	},
 };

@@ -17,6 +17,7 @@ return [
     'password' => 'Mật khẩu không chính xác.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'account_active' => 'Tài khoản ngưng hoạt động.',
-    'authorize_failed' => 'Đăng nhập không thành công. Vui lòng đăng nhập lại.'
+    'authorize_failed' => 'Đăng nhập không thành công. Vui lòng đăng nhập lại.',
+    'account_not_exists' => 'Tài khoản không tồn tại.',
 
 ];
