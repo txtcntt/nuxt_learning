@@ -61,3 +61,12 @@
     padding-top: 8px;
     white-space: nowrap;
 }
+
+.nuxt-link-exact-active{
+    background: navy;
+    border-radius: 3px;
+}
+
+.logo {
+    background: transparent;
+}

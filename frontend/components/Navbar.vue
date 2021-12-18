@@ -1,6 +1,6 @@
 <template >
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <nuxt-link to="/users" class="navbar-brand">
+        <nuxt-link to="/users" class="navbar-brand logo">
             <img src="~/assets/images/rcvn_lg.png" alt="Rivercrane Logo" class="brand-image img-circle elevation-3" style="opacity: .8; border-radius: 50%; height: 30px">
             <span class="brand-text font-weight-bold">RiverCrane Vietnam</span>
         </nuxt-link>
@@ -17,13 +17,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <nuxt-link to="/users" class="nav-link">User</nuxt-link>
+                <li class="nav-item">
+                    <nuxt-link to="/users" active-class="active" class="nav-link">User</nuxt-link>
                 </li>
-                <li class="nav-item active">
-                    <nuxt-link to="/products" class="nav-link"
-                        >Product</nuxt-link
-                    >
+                <li class="nav-item">
+                    <nuxt-link to="/products" active-class="active" class="nav-link">Product</nuxt-link>
                 </li>
             </ul>
             <template v-if="authenticated">
