@@ -13,7 +13,8 @@ II. Các bước cài đặt và chạy chương trình
     + Tạo mới mysql database
     + Cấu hình lại thông tin kết nối database trong file .env
     + Chạy lệnh bên dưới để download thư mục source vendor
-   
+        
+         cd backend
          composer up
          
     + Chạy lệnh bên dưới để tạo generate key cho JWT
@@ -32,8 +33,10 @@ II. Các bước cài đặt và chạy chương trình
 
 2. Cấu hình phần source Frontend:
     + Chạy lệnh bên dưới để tải về thư viện của node js
+        cd frontend
         npm install
     + Chạy lệnh start ứng dụng
+        
         npm run dev
 
 III. Thông tin hệ thống
