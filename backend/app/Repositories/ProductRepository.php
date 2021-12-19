@@ -56,7 +56,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             if (isset($params['tprice']) && $params['tprice'] != '') {
                 $conditions[] = ['product_price', '<=', $params['tprice']];
             }
-            if (isset($params['status']) && in_array($params['status'], [0, 1])) {
+            if (isset($params['status']) && in_array($params['status'], [0, 1, 2])) {
                 $conditions[] = ['is_sales', '=', $params['status']];
             }
             if (isset($params['page']) && $params['page'] != '') {
@@ -189,11 +189,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             if (empty($fileName)) {
                 $fileName = $file->getClientOriginalName();
             }
-            $path =  'public/' . config('constants.folder_path.product') . '/' . $folderName;
-            if (!Storage::exists($path)) {
-                Storage::makeDirectory($path);
+            $path = '/public/' . config('constants.folder_path.product') . '/' . $folderName;
+            if (!Storage::disk('image')->exists($path)) {
+                Storage::disk('image')->makeDirectory($path);
             }
-            $file->storeAs($path,  $fileName);
+            Storage::disk('image')->putFileAs($path, $file, $fileName);
+            // $file->storeAs(Storage::disk('image')->path($path),  $fileName);
             return $fileName;
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
@@ -241,9 +242,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
 
             if (!empty($productInfo->product_image)) {
-                $path =  'public/' . config('constants.folder_path.product') . '/' . $productId . '/' . $productInfo->product_image;
-                if (Storage::exists($path)) {
-                    Storage::delete($path);
+                $path =  '/public/' . config('constants.folder_path.product') . '/' . $productId . '/' . $productInfo->product_image;
+                if (Storage::disk('image')->exists($path)) {
+                    Storage::disk('image')->delete($path);
                 }
                 $productInfo->product_image = '';
                 $productInfo->save();

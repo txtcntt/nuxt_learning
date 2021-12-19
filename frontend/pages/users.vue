@@ -145,7 +145,7 @@ export default {
             users: [],
             condition: this.initSearchCondition(),
             form: this.initForm(),
-            groups: {admin:'Admin',editor:'Editor',reviewer:'Reviewer'},
+            groups: {admin:'Admin', editor:'Editor', reviewer:'Reviewer'},
             status: {0: 'Tạm ngừng', 1: 'Đang hoạt động'},
         };
     },
@@ -191,7 +191,8 @@ export default {
         updatePape(e){
             this.pagination(this.condition.page);
             this.form = this.initForm();
-            this.modalShow(false); 
+            this.modalShow(false);
+            alert(e);
         },
         /**
          * Search user

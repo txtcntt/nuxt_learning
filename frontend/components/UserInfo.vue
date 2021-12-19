@@ -112,7 +112,7 @@ export default {
   methods: {
     createUser() {
         this.$axios.$post("user/store", this.form)
-        .then(({ data }) => {
+        .then((data) => {
             this.$emit("update", data.message);
         })
         .catch(function (error) {
@@ -121,7 +121,7 @@ export default {
     },
     updateUser() {  
         this.$axios.$post("user/save", this.form)
-        .then(({ data }) => {
+        .then(( data ) => {
           this.$emit("update", data.message);
         })
         .catch(function (error) {          
