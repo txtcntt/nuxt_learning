@@ -147,11 +147,12 @@ export default {
             form: this.initForm(),
             groups: {admin:'Admin',editor:'Editor',reviewer:'Reviewer'},
             status: {0: 'Tạm ngừng', 1: 'Đang hoạt động'},
-            perpage: 10,
-            totalPage: 10,
         };
     },
     methods: {
+        /**
+         * Init search condition
+         */
         initSearchCondition() {
             return {
                 name: "",
@@ -161,6 +162,9 @@ export default {
                 page: 1,
             };
         },
+        /**
+         * Init add/edit user form
+         */
         initForm() {
             return {
                 id: "",
@@ -172,35 +176,48 @@ export default {
                 status: 1,
             };
         },
-        updatePape(e){
-            this.pagination(this.condition.page);
-            this.form = this.initForm();
-            this.modalShow(false); 
-        },
-        search() {
-            this.pagination(1);
-        },
-        clearSearch() {
-            this.condition = this.initSearchCondition();
-            this.pagination(1);
-        },
-        newModal() {
-        },
+        /**
+         * Get user list with search condition and paging
+         */
         async pagination(page = 1) {
             this.condition.page = page;
             let {data} = await this.$axios.$post("user/search", this.condition)
             this.users = data
         },
-        getIndex(itemIndex) {
-            return itemIndex + 1 + (this.condition.page - 1) * this.perpage;
+        /**
+         * Reload data after add/edit/delete user
+         * and show message
+         */
+        updatePape(e){
+            this.pagination(this.condition.page);
+            this.form = this.initForm();
+            this.modalShow(false); 
         },
+        /**
+         * Search user
+         */
+        search() {
+            this.pagination(1);
+        },
+        /**
+         * Clear search condition
+         */
+        clearSearch() {
+            this.condition = this.initSearchCondition();
+            this.pagination(1);
+        },               
+        /**
+         * Delete user info
+         */
         async deleteUser(user) {            
             if(confirm('Bạn có muốn xóa thành viên ' + user.name + ' không?')){
                 let {data} = await this.$axios.$post("user/delete", { id: user.id })
                 this.pagination(1);
             }
         },
-
+        /**
+         * Lock or unlock user
+         */
         async lockUser(user) {
             var confirmMessage = 'Bạn có muốn '+ (user.is_active == 1 ? "khóa" : "mở hóa") +' thành viên ' + user.name + ' không?';
             if(confirm(confirmMessage)){
@@ -212,21 +229,26 @@ export default {
                 user.is_active = user.is_active == 1 ? 0 : 1;
             }            
         },
-
+        /**
+         * Open dialog add user info
+         */
+        newModal() {
+            this.editmode = false;
+            this.form = this.initForm();
+            this.modalShow(true);
+        }, 
+        /**
+         * Open dialog edit user info
+         */
         editModal(user) {
             this.editmode = true;
-            this.resetForm();
+            this.form = this.initForm();
             this.modalShow(true);
             this.fillForm(user);
         },
-        newModal() {
-            this.editmode = false;
-            this.resetForm();
-            this.modalShow(true);
-        },
-        resetForm() {
-            this.form = this.initForm();
-        },
+        /**
+         * Fill user data to form for edit
+         */
         fillForm(user) {
             this.form.id = user.id;
             this.form.name = user.name;
@@ -236,6 +258,15 @@ export default {
             this.form.password = '';
             this.form.confirm = '';
         },
+        /**
+         * Get item index
+         */
+        getIndex(itemIndex) {
+            return itemIndex + 1 + (this.condition.page - 1) * this.users.per_page;
+        },
+        /**
+         * Open or close dialog add/edit user info
+         */
         modalShow(isShow) {
             if (isShow) {
                 $("#popup_user_info").modal('show');
