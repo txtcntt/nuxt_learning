@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-group">
                         <img v-bind:src="form.image_url| getImagePath(form.id)" class="product-image" v-if="form.image_url" />
-                        <img src="~/assets/images/default.png" class="product-image" v-else />
+                        <img src="/default.png" class="product-image" v-else />
                     </div>
                     <div class="form-group">
                         <button type="button" class="btn btn-primary btn-width btn-sm" @click.prevent="openFileUpload">Upload</button>
@@ -216,7 +216,7 @@ export default {
     filters: {
         getImagePath: function (value, id) {
             if(value == null || value == 'null' || value == ''){
-                return '~/assets/images/default.png';
+                return '/default.png';
             }
             if(value.indexOf('blob:') == -1){
                 return '/public/products/'+ id + '/' + encodeURI(value);

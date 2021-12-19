@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
                 'product_name' => 'Sản phẩm ' . strtoupper($charName),
                 'description' => $faker->text(255), // 'Chức năng sản phẩm ' . strtoupper($charName),
                 'product_price' => rand(10, 1000),
-                'product_image' => $faker->imageUrl(),
+                'product_image' => '',
                 'is_sales' => rand(0, 2), //0: top sales, 1: sales, 2: quantity = 0
                 'created_at' => now()->addHour(rand(1,23))->addMinute(rand(1,59))->addSecond(rand(1,59)),
             ];

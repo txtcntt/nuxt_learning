@@ -74,3 +74,21 @@
 .fade:not(.show) {
     opacity: 1;
 }
+.template-image{
+    display: none;
+    position: absolute;    
+    left: 100px;   
+    z-index: 1000;    
+}
+.product-hover{
+    position: relative;
+}
+.product-hover:hover .template-image{
+    display: block;
+}
+.image-tooltip img {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 4px;
+    border: solid 1px navy;
+}

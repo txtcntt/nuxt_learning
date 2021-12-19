@@ -96,9 +96,9 @@
                                     <td>
                                         <a href="javascript:void(0);" class="product-hover">
                                         {{ product.product_id }}
-                                        <div class="template-image d-none">
+                                        <div class="template-image">
                                             <div class="image-tooltip">
-                                            <img src="~/assets/images/default.png" onerror="this.src='~/assets/images/default.png'" v-bind:imageurl="product.product_image"/>
+                                            <img :src="product.product_image| getImagePath(product.product_id, image_path)" onerror="this.src='/default.png'" />
                                             </div>
                                         </div>
                                         </a>
@@ -152,6 +152,7 @@ export default {
             conditions: this.initSearchCondition(),
             baseUrl: '/products',
             searchUrl: '',
+            image_path: '/public/products/'
         };
     },
     methods: {
@@ -276,7 +277,7 @@ export default {
         },
         getImagePath: function (value, id, path) {
             if(!value || value == null || value == 'null' || value == ''){
-            return '/images/default.png';
+                return '/default.png';
             }
             return path + id + '/' + encodeURI(value);
         },
