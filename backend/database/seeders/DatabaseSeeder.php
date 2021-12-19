@@ -28,6 +28,19 @@ class DatabaseSeeder extends Seeder
 
         //Generator users
         $userLastNames = ['trinh' => 'Trịnh Quang', 'nguyen' => 'Nguyễn Văn', 'tran' => 'Trần Quốc'];
+        DB::table('mst_users')->insert(
+            [
+                'name' => 'Trinh Tien',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('Tt123456@'),
+                'remember_token' => Str::random(10),
+                'is_active' => 1,
+                'group_role' => $groupRoles[array_rand($groupRoles, 1)],
+                'last_login_at' => now(),
+                'last_login_ip' => $faker->ipv4,
+                'created_at' => now()->addHour(rand(1,23))->addMinute(rand(1,59))->addSecond(rand(1,59)),
+            ]
+        );
         foreach ($userLastNames as $key => $lastName) {
             for ($i = 97; $i <= 122; $i++) {
                 $charName = chr($i);

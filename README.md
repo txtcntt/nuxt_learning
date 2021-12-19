@@ -54,5 +54,5 @@ III. Thông tin hệ thống
 
     vd tài khoản đăng nhập:
     
-        username:a.trinh@gmail.com
+        username:admin@gmail.com
         Password:Tt123456@
