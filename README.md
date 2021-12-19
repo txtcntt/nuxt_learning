@@ -9,33 +9,39 @@ I. Cấu truc folder
 
 II. Các bước cài đặt và chạy chương trình
 1. Cấu hình phần source Backend:
-    + Copy file môi trường .env.example và đổi tên thành .env
-    + Tạo mới mysql database
-    + Cấu hình lại thông tin kết nối database trong file .env
-    + Chạy lệnh bên dưới để download thư mục source vendor
+    Copy file môi trường .env.example và đổi tên thành .env
+    
+    Tạo mới mysql database
+    
+    Cấu hình lại thông tin kết nối database trong file .env
+    
+    Chạy lệnh bên dưới để download thư mục source vendor
         
-         cd backend
-         composer up
+        cd backend
          
-    + Chạy lệnh bên dưới để tạo generate key cho JWT
+        composer up
          
-         php artisan jwt:secret
+    Chạy lệnh bên dưới để tạo generate key cho JWT
          
-    + Chạy lệnh bên dưới để thực hiện migration và tạo database
+        php artisan jwt:secret
+         
+    Chạy lệnh bên dưới để thực hiện migration và tạo database
    
         php artisan migrate
         
         php artisan db:seed
         
-    + Chạy lệnh start API
+    Chạy lệnh start API
 
         php artisan serve
 
 2. Cấu hình phần source Frontend:
-    + Chạy lệnh bên dưới để tải về thư viện của node js
+    Chạy lệnh bên dưới để tải về thư viện của node js
+    
         cd frontend
+        
         npm install
-    + Chạy lệnh start ứng dụng
+    Chạy lệnh start ứng dụng
         
         npm run dev
 
