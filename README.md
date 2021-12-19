@@ -13,13 +13,21 @@ II. Các bước cài đặt và chạy chương trình
     + Tạo mới mysql database
     + Cấu hình lại thông tin kết nối database trong file .env
     + Chạy lệnh bên dưới để download thư mục source vendor
-        composer up
+   
+         composer up
+         
     + Chạy lệnh bên dưới để tạo generate key cho JWT
-        php artisan jwt:secret
+         
+         php artisan jwt:secret
+         
     + Chạy lệnh bên dưới để thực hiện migration và tạo database
+   
         php artisan migrate
+        
         php artisan db:seed
+        
     + Chạy lệnh start API
+
         php artisan serve
 
 2. Cấu hình phần source Frontend:
