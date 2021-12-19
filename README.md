@@ -1,10 +1,10 @@
 # nuxt_learning
 I. Cấu truc folder
     Cấu trúc source bao gồm 2 folder:
-    1. Backend:
-        Đây là folder chứa source laravel đóng vai trò là API
-    2. Frontend:
-        Đây là folder chứa source nuxt js đóng vai trò là giao diện người dùng (client)
+
+    Backend: Đây là folder chứa source laravel đóng vai trò là API
+
+    Frontend: Đây là folder chứa source nuxt js đóng vai trò là giao diện người dùng (client)
         Source nuxt js sẽ gọi API để lấy dữ liệu và hiển thị lên màn hình.
 
 II. Các bước cài đặt và chạy chương trình
@@ -34,6 +34,8 @@ III. Thông tin hệ thống
 
 2. Tài khoản đăng nhập
     Tất cả các tài khoản user được tạo sẵn trong table mst_users đều có password chung là: Tt123456@
+
     vd tài khoản đăng nhập:
+    
         username:a.trinh@gmail.com
         Password:Tt123456@
