@@ -23,17 +23,7 @@ class UserController extends BaseController
     {
         $this->userRepository = $userRepository;
     }
-
-    public function index()
-    {
-        return view('user',[
-                'groups' => json_encode(config('constants.group_roles')),
-                'status' => json_encode(config('constants.user_active_status')),
-                'perpage' => config('constants.item_per_page')
-            ]
-        );
-    }
-
+    
     public function search(Request $request)
     {
         $searchCondition = [

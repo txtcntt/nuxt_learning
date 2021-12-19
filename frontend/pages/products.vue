@@ -128,7 +128,15 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>                    
+                        </div>
+                        <div class="col-sm-12 d-flex" >
+                            <div class="col-sm-5 dataTables_info pl-0">Hiển thị từ {{products.from}} ~ {{products.to}} trong tổng số {{products.total}} sản phẩm</div>
+                            <div class="col-sm-7 pr-0">
+                                <div style="float:right">
+                                <Pagination :total="products.last_page" :current="products.current_page" v-on:paging="pagination"></Pagination>
+                                </div>
+                            </div>
+                        </div>                   
                     </div>
                 </div>
             </div> 
@@ -156,14 +164,23 @@ export default {
         };
     },
     methods: {
+        /**
+         * Search product
+         */
         search() {
             this.conditions.page = 1;
             window.location.href = this.generateSearchUrl();
         },
+        /**
+         * Clear search condition
+         */
         clearSearch() {
             this.conditions = this.initSearchCondition();
             window.location.href = this.generateSearchUrl();
         },
+        /**
+         * Init search condition
+         */
         initSearchCondition() {
             return {
                 name: '',
@@ -173,9 +190,15 @@ export default {
                 page: 1,
             };
         },
+        /**
+         * Get item index
+         */
         getIndex(itemIndex) {
             return itemIndex + 1 + (this.conditions.page - 1) * this.products.per_page;
         },
+        /**
+         * Get products with search condition and paging
+         */
         async pagination(pageNumber) {
             this.conditions.page = pageNumber;
             let {data} = await this.$axios.$post("products/search", this.conditions);
@@ -193,6 +216,9 @@ export default {
                 alert(e);
             }
         },
+        /**
+         * Create search url from search condition
+         */
         generateSearchUrl(){
             var rqParams = [];
             if(this.conditions.name != ''){
@@ -213,12 +239,18 @@ export default {
                 return this.baseUrl;
             }
         },
+        /**
+         * Delete product info
+         */
         async deleteProduct(product) {
             if(confirm('Bạn có muốn xóa sản phẩm ' + product.product_name + ' không?')){
                 let {data} = await this.$axios.$post("products/delete", { id: product.product_id })
                 this.pagination(1);
             }            
         },
+        /**
+         * Open dialog add/edit product info
+         */
         openProductInfo(product) {
             this.form = this.initForm();
             this.editmode = product != null;
@@ -234,6 +266,9 @@ export default {
                 $("#popup_product_info").modal("hide");
             }
         },
+        /**
+         * Init product form data. Using for add product
+         */
         initForm() {
             return {
                 id: '',
@@ -245,6 +280,9 @@ export default {
                 image_url: ''
             };
         },
+        /**
+         * Fill product info from object to form
+         */
         fillForm(product) {
             this.form.id = product.product_id;
             this.form.name = product.product_name;

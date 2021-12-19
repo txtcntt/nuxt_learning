@@ -23,19 +23,6 @@ class ProductController extends BaseController
         $this->productRepository = $productRepository;
     }
 
-    public function index(Request $request)
-    {
-        return view(
-            'product',
-            [
-                'status' => json_encode(config('constants.product_status')),
-                'perpage' => config('constants.item_per_page'),
-                'conditions' => $this->getSearchParams($request),
-                'image_path' => 'storage/' . config('constants.folder_path.product') . '/',
-            ]
-        );
-    }
-
     /**
      * Search product list with conditions
      * 

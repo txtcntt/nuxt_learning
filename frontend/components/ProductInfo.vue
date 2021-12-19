@@ -108,22 +108,27 @@ export default {
         };
     },
     methods: {
-        createProduct() {
-            this.$axios.$post("products/store", this.createFormData(),{
+        /**
+         * Create new product info
+         */
+        async createProduct() {
+            await this.$axios.$post("products/store", this.createFormData(),{
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
             })
             .then((data) => {
                 this.clearFileUpload();
-                this.$emit("update", data.message);
-                
+                this.$emit("update", data.message);                
             })
             .catch(function (error) {
-            });        
+            });      
         },
-        updateProduct() {
-            this.$axios.$post("products/save", this.createFormData(),{
+        /**
+         * Update product info
+         */
+        async updateProduct() {
+            await this.$axios.$post("products/save", this.createFormData(),{
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
@@ -135,20 +140,28 @@ export default {
             .catch(function (error) {          
             });      
         },
+        /**
+         * Close dialog add/edit product
+         */
         closeModal(){
-            this.errors = {};
             this.clearFileUpload();
             this.$emit("update", '');
         },
+        /**
+         * Open file upload
+         */
         openFileUpload(){
             $('#img_file').click();
         },
-        deleteImage(id){
+        /**
+         * Delete product image
+         */
+        async deleteImage(id){
             if(!this.form.image_url || id == ''){
                 this.clearFileUpload();
                 return;
             }
-            this.$axios.$post("products/image/delete", {id:id})
+            await this.$axios.$post("products/image/delete", {id:id})
                 .then(({ data }) => {
                     this.clearFileUpload();
                 })
@@ -156,12 +169,18 @@ export default {
                 }
             );
         },
+        /**
+         * Clear file upload input
+         */
         clearFileUpload(){
             $('#img_file').val('');
             this.form.image_url = '';
             this.form.image_name = '';
             this.file = '';
         },
+        /**
+         * Check image upload: file type, size, 
+         */
         checkImageUpload(){
             if (!$('#img_file')[0].files.length){
                 this.clearFileUpload();
@@ -201,6 +220,9 @@ export default {
             var _URL = window.URL || window.webkitURL;
             img.src = _URL.createObjectURL(vm.file);
         },
+        /**
+         * Create submit data from form data
+         */
         createFormData(){
             let formData = new FormData();
             formData.append('id', this.form.id);

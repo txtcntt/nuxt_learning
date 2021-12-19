@@ -13,7 +13,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     
     /** User routes - START*/
-    Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::post('/user/search', [UserController::class, 'search'])->name('user.search');
     Route::post('/user/lock', [UserController::class, 'lockUser'])->name('user.lock');
     Route::post('/user/delete', [UserController::class, 'deleteUser'])->name('user.delete');
@@ -22,7 +21,6 @@ Route::middleware(['auth:api'])->group(function () {
     /** User routes - END*/
 
     /** Product routes - START */
-    Route::get('/products', [ProductController::class, 'index'])->name('product.index');
     Route::post('/products/search', [ProductController::class, 'search'])->name('product.search');
     Route::post('/products/delete', [ProductController::class, 'deleteProduct'])->name('product.delete');
     Route::post('/products/store', [ProductController::class, 'storeProduct'])->name('product.store');

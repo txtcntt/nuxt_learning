@@ -212,7 +212,7 @@ export default {
          */
         async deleteUser(user) {            
             if(confirm('Bạn có muốn xóa thành viên ' + user.name + ' không?')){
-                let {data} = await this.$axios.$post("user/delete", { id: user.id })
+                await this.$axios.$post("user/delete", { id: user.id })
                 this.pagination(1);
             }
         },
@@ -226,7 +226,7 @@ export default {
                     id: user.id,
                     status: user.is_active == 1 ? 0 : 1,
                 }
-                let {data} = await this.$axios.$post("user/lock", params)
+                await this.$axios.$post("user/lock", params)
                 user.is_active = user.is_active == 1 ? 0 : 1;
             }            
         },
