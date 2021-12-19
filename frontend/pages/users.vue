@@ -75,56 +75,56 @@
                             <div class="col-sm-5 dataTables_info pl-0">Hiển thị từ {{users.from}} ~ {{users.to}} trong tổng số {{users.total}} user</div>
                             <div class="col-sm-7 pr-0">
                                 <div style="float:right">
-                                <!-- <pagination :data="users" @pagination-change-page="pagination"></pagination> -->
+                                <Pagination :total="users.last_page" :current="users.current_page" v-on:paging="pagination"></Pagination>
                                 </div>
                             </div>
                         </div>
-                    <div class="col-sm-12 table-responsive">
-                        <table id="tblUsers" class="table table-bordered table-hover" role="grid">
-                            <thead class="table-active">
-                                <tr role="row" class="table-header-center">
-                                <th tabindex="0" rowspan="1" colspan="1">#</th>
-                                <th tabindex="1" rowspan="1" colspan="1">Họ tên</th>
-                                <th tabindex="2" rowspan="1" colspan="1">Email</th>
-                                <th tabindex="3" rowspan="1" colspan="1">Nhóm</th>
-                                <th tabindex="4" rowspan="1" colspan="1">Trạng Thái</th>
-                                <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr role="row" class="odd" v-for="(user, index) in users.data" :key="user.id">
-                                <td>{{ getIndex(index) }}</td>
-                                <td>{{ user.name }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.group_role }}</td>
-                                <td>
-                                    {{ user.is_active | statusName() }}
-                                </td>
-                                <td class="text-center">
-                                    <div>
-                                    <a href="javascript:void(0);" @click="editModal(user)">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:void(0);"  class="text-danger ml-1 mr-1" @click="deleteUser(user)" >
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="text-dark"  @click="lockUser(user)">
-                                        <i class="fa fa-user-lock"></i>
-                                    </a>
-                                    </div>
-                                </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-sm-12 d-flex" >
-                        <div class="col-sm-5 dataTables_info pl-0">Hiển thị từ {{users.from}} ~ {{users.to}} trong tổng số {{users.total}} user</div>
-                        <div class="col-sm-7 pr-0">
-                            <div style="float:right">
-                            <!-- <pagination :data="users" @pagination-change-page="pagination"></pagination> -->
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblUsers" class="table table-bordered table-hover" role="grid">
+                                <thead class="table-active">
+                                    <tr role="row" class="table-header-center">
+                                    <th tabindex="0" rowspan="1" colspan="1">#</th>
+                                    <th tabindex="1" rowspan="1" colspan="1">Họ tên</th>
+                                    <th tabindex="2" rowspan="1" colspan="1">Email</th>
+                                    <th tabindex="3" rowspan="1" colspan="1">Nhóm</th>
+                                    <th tabindex="4" rowspan="1" colspan="1">Trạng Thái</th>
+                                    <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr role="row" class="odd" v-for="(user, index) in users.data" :key="user.id">
+                                    <td>{{ getIndex(index) }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.group_role }}</td>
+                                    <td>
+                                        {{ user.is_active | statusName() }}
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                        <a href="javascript:void(0);" @click="editModal(user)">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="javascript:void(0);"  class="text-danger ml-1 mr-1" @click="deleteUser(user)" >
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="text-dark"  @click="lockUser(user)">
+                                            <i class="fa fa-user-lock"></i>
+                                        </a>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-12 d-flex" >
+                            <div class="col-sm-5 dataTables_info pl-0">Hiển thị từ {{users.from}} ~ {{users.to}} trong tổng số {{users.total}} user</div>
+                            <div class="col-sm-7 pr-0">
+                                <div style="float:right">
+                                <Pagination :total="users.last_page" :current="users.current_page" v-on:paging="pagination"></Pagination>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -134,9 +134,10 @@
     </div>
 </template>
 <script>
-import  UserInfo from '@/components/UserInfo'
+import UserInfo from '@/components/UserInfo'
+import Pagination from '@/components/Pagination'
 export default {
-    components: {UserInfo},
+    components: {UserInfo, Pagination},
 	middleware: ["auth"],
     data() {
         return {
@@ -147,6 +148,7 @@ export default {
             groups: {admin:'Admin',editor:'Editor',reviewer:'Reviewer'},
             status: {0: 'Tạm ngừng', 1: 'Đang hoạt động'},
             perpage: 10,
+            totalPage: 10,
         };
     },
     methods: {
@@ -235,11 +237,11 @@ export default {
             this.form.confirm = '';
         },
         modalShow(isShow) {
-        if (isShow) {
-            $("#popup_user_info").modal('show');
-        } else {
-            $("#popup_user_info").modal("hide");
-        }
+            if (isShow) {
+                $("#popup_user_info").modal('show');
+            } else {
+                $("#popup_user_info").modal("hide");
+            }
         },
     },
     filters: {

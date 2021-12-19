@@ -69,7 +69,6 @@ export default {
     modules: [
         '@nuxtjs/axios',
         '@nuxtjs/auth-next',
-        'nuxt-sweetalert2'
     ],
 
     axios: {
